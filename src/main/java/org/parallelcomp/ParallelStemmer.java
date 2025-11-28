@@ -7,10 +7,38 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Main application class that coordinates the producer-consumer pipeline
+ * for parallel text stemming. This class serves as the entry point and
+ * orchestrates the entire multi-threaded processing workflow.
+ *
+ * <p>The application implements a three-stage pipeline:
+ * <ol>
+ *   <li>Producer stage: Reads lines from input file</li>
+ *   <li>Processing stage: Multiple threads stem text in parallel</li>
+ *   <li>Consumer stage: Writes results to output file</li>
+ * </ol>
+ */
 public class ParallelStemmer {
+    /**
+     * The maximum number of elements that can be held in the blocking queues.
+     * This prevents memory exhaustion with large input files.
+     */
     public static int NUM_CONSUMERS = 5;
+    /**
+     * The number of parallel processing consumer threads to create.
+     * This should be tuned based on available CPU cores.
+     */
     private static final int QUEUE_CAPACITY = 100;
+    /**
+     * The Default input file path.
+     * this is used in case input file is not provided
+     */
     private static final String DEFAULT_INPUT_FILE = "input.txt";
+    /**
+     * The Default output file path.
+     * this is used in case output file is not provided
+     */
     private static final String DEFAULT_OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) {
@@ -46,6 +74,25 @@ public class ParallelStemmer {
         }
     }
 
+    /**
+     * Executes the complete parallel stemming pipeline.
+     *
+     * <p>This method coordinates the entire workflow:
+     * <ol>
+     *   <li>Creates and configures the blocking queues</li>
+     *   <li>Initializes producer, consumers, and executor service</li>
+     *   <li>Starts all threads and manages their lifecycle</li>
+     *   <li>Handles graceful shutdown of all components</li>
+     * </ol>
+     *
+     * @param inputFile  Path to the input file containing text to process
+     * @param outputFile Path to the output file where stemmed text will be written
+     * @throws IOException if file I/O operations fail
+     * @throws InterruptedException if thread operations are interrupted
+     * @see Producer
+     * @see ProcessingConsumer
+     * @see WritingConsumer
+     */
     public static void processFileWithStemming(String inputFile, String outputFile)
             throws IOException, InterruptedException{
 
