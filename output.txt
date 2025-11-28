@@ -1,4 +1,0 @@
-testing the stemmer done
-inconsistency testing done
-doing finding unbound done
-unbelievable processing test done
