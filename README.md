@@ -112,6 +112,8 @@ do find unbound
 - **lucene-snowball** (v3.0.3): Provides English stemming functionality
 - **Maven**: For dependency management and build automation
 
+## Report
+A detailed report is included in `report.pdf`, covering implementation, analysis, and some discussion points.
 ## References
 
 - [Producer-Consumer Pattern](https://java-design-patterns.com/patterns/producer-consumer/)
